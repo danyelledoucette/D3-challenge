@@ -1,10 +1,10 @@
 var svgWidth = 960;
-var svgHeight = 500;
+var svgHeight = 550;
 
 var margin = {
     top: 20,
     right: 40,
-    bottom: 60,
+    bottom: 100,
     left: 100
 }
 
@@ -25,7 +25,7 @@ var chartGroup = svg.append("g")
 
 // Initial Params
 var chosenXAxis = "poverty";
-var chosenYAxis = "obesity"
+var chosenYAxis = "healthcare";
 
 // function used for updating x-scale var upon click on axis label
 function xScale(healthData, chosenXAxis) {
@@ -52,28 +52,28 @@ function xScale(healthData, chosenXAxis) {
   }
   
 //   // function used for updating y-scale var upon click on axis label
-// function yScale(healthData, chosenYAxis) {
-//     // create scales
-//     var yLinearScale = d3.scaleLinear()
-//       .domain([d3.min(healthData, d => d[chosenYAxis]) * 0.8,
-//         d3.max(healthData, d => d[chosenYAxis]) * 1.2
-//       ])
-//       .range([0, width]);
+function yScale(healthData, chosenYAxis) {
+    // create scales
+    var yLinearScale = d3.scaleLinear()
+      .domain([d3.min(healthData, d => d[chosenYAxis]) * 0.8,
+        d3.max(healthData, d => d[chosenYAxis]) * 1.2
+      ])
+      .range([0, width]);
   
-//     return yLinearScale;
+    return yLinearScale;
   
-//   }
+  }
   
-//   // function used for updating xAxis var upon click on axis label
-//   function renderAxes(newYScale, yAxis) {
-//     var leftAxis = d3.axisLeft(newYScale);
+  // function used for updating xAxis var upon click on axis label
+  function renderAxes(newYScale, yAxis) {
+    var leftAxis = d3.axisLeft(newYScale);
   
-//     yAxis.transition()
-//       .duration(1000)
-//       .call(leftAxis);
+    yAxis.transition()
+      .duration(1000)
+      .call(leftAxis);
   
-//     return yAxis;
-//   }
+    return yAxis;
+  }
   
   // function used for updating circles group with a transition to
   // new circles (x)
@@ -87,15 +87,15 @@ function xScale(healthData, chosenXAxis) {
   }
 
 //   // function used for updating circles group with a transition to
-//   // new circles (y)
-//   function renderCircles(circlesGroup, newYScale, chosenYAxis) {
+  // new circles (y)
+  function renderCircles(circlesGroup, newYScale, chosenYAxis) {
   
-//     circlesGroup.transition()
-//       .duration(1000)
-//       .attr("cx", d => newXScale(d[chosenYAxis]));
+    circlesGroup.transition()
+      .duration(1000)
+      .attr("cx", d => newXScale(d[chosenYAxis]));
   
-//     return circlesGroup;
-//   }
+    return circlesGroup;
+  }
   // function used for updating circles group with new tooltip
   function updateToolTip(chosenXAxis, circlesGroup) {
   
@@ -172,7 +172,7 @@ d3.csv("assets/data/data.csv").then(function(healthData, err) {
         .attr("fill", "blue")
         .attr("opacity", ".5");
 
-    // Create group for two x-axis labels
+    // Create group for three x-axis labels
     var labelsGroup = chartGroup.append("g")
     .attr("transform", `translate(${width / 2}, ${height + 20})`);
 
@@ -190,6 +190,38 @@ d3.csv("assets/data/data.csv").then(function(healthData, err) {
     .classed("inactive", true)
     .text("Age (Median)");
 
+    var incomeLabel = labelsGroup.append("text")
+    .attr("x", 0)
+    .attr("y", 60)
+    .attr("value", "income") // value to grab for event listener
+    .classed("inactive", true)
+    .text("Household Income (Median)");
+
+    // // Create group for three y-axis labels
+    // var labelsGroup = chartGroup.append("g")
+    // .attr("transform", `translate(${width / 2}, ${height + 20})`);
+
+    // var healthcareLabel = labelsGroup.append("text")
+    // .attr("x", 20)
+    // .attr("y", 0)
+    // .attr("value", "healthcare") // value to grab for event listener
+    // .classed("active", true)
+    // .text("Lacks Healthcare (%)");
+
+    // var smokesLabel = labelsGroup.append("text")
+    // .attr("x", 40)
+    // .attr("y", 0)
+    // .attr("value", "smokes") // value to grab for event listener
+    // .classed("inactive", true)
+    // .text("Smokes (%)");
+
+    // var obeseLabel = labelsGroup.append("text")
+    // .attr("x", 60)
+    // .attr("y", 0)
+    // .attr("value", "obese") // value to grab for event listener
+    // .classed("inactive", true)
+    // .text("Obese (%))");
+    
     // Create axes labels
     chartGroup.append("text")
       .attr("transform", "rotate(-90)")
