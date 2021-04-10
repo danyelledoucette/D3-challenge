@@ -197,7 +197,7 @@ d3.csv("assets/data/data.csv").then(function(healthData, err) {
     .classed("inactive", true)
     .text("Household Income (Median)");
 
-    // // Create group for three y-axis labels
+    // Create group for three y-axis labels
     // var labelsGroup = chartGroup.append("g")
     // .attr("transform", `translate(${width / 2}, ${height + 20})`);
 
@@ -221,7 +221,6 @@ d3.csv("assets/data/data.csv").then(function(healthData, err) {
     // .attr("value", "obese") // value to grab for event listener
     // .classed("inactive", true)
     // .text("Obese (%))");
-    
     // Create axes labels
     chartGroup.append("text")
       .attr("transform", "rotate(-90)")
