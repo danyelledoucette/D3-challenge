@@ -52,28 +52,28 @@ function xScale(healthData, chosenXAxis) {
   }
   
 //   // function used for updating y-scale var upon click on axis label
-function yScale(healthData, chosenYAxis) {
-    // create scales
-    var yLinearScale = d3.scaleLinear()
-      .domain([d3.min(healthData, d => d[chosenYAxis]) * 0.8,
-        d3.max(healthData, d => d[chosenYAxis]) * 1.2
-      ])
-      .range([0, width]);
+// function yScale(healthData, chosenYAxis) {
+//     // create scales
+//     var yLinearScale = d3.scaleLinear()
+//       .domain([d3.min(healthData, d => d[chosenYAxis]) * 0.8,
+//         d3.max(healthData, d => d[chosenYAxis]) * 1.2
+//       ])
+//       .range([0, width]);
   
-    return yLinearScale;
+//     return yLinearScale;
   
-  }
+//   }
   
   // function used for updating xAxis var upon click on axis label
-  function renderAxes(newYScale, yAxis) {
-    var leftAxis = d3.axisLeft(newYScale);
+//   function renderAxes(newYScale, yAxis) {
+//     var leftAxis = d3.axisLeft(newYScale);
   
-    yAxis.transition()
-      .duration(1000)
-      .call(leftAxis);
+//     yAxis.transition()
+//       .duration(1000)
+//       .call(leftAxis);
   
-    return yAxis;
-  }
+//     return yAxis;
+//   }
   
   // function used for updating circles group with a transition to
   // new circles (x)
@@ -88,14 +88,14 @@ function yScale(healthData, chosenYAxis) {
 
 //   // function used for updating circles group with a transition to
   // new circles (y)
-  function renderCircles(circlesGroup, newYScale, chosenYAxis) {
+//   function renderCircles(circlesGroup, newYScale, chosenYAxis) {
   
-    circlesGroup.transition()
-      .duration(1000)
-      .attr("cx", d => newXScale(d[chosenYAxis]));
+//     circlesGroup.transition()
+//       .duration(1000)
+//       .attr("cy", d => newXScale(d[chosenYAxis]));
   
-    return circlesGroup;
-  }
+//     return circlesGroup;
+//   }
   // function used for updating circles group with new tooltip
   function updateToolTip(chosenXAxis, circlesGroup) {
   
@@ -108,6 +108,7 @@ function yScale(healthData, chosenYAxis) {
       label = "Age (Median):";
     }
   
+
     var toolTip = d3.tip()
       .attr("class", "tooltip")
       .offset([80, -60])
